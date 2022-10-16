@@ -3,11 +3,11 @@ def dna_match_topdown(DNA1, DNA2):
     LDNA1 = len(DNA1)
     LDNA2 = len(DNA2)
 
-    cache = [[-1 for x in range(LDNA1+1)] for x in range(LDNA2+1)]
-    result = lcs(DNA1, DNA2, LDNA1, LDNA2, cache)
+    cache = [[-1 for _ in range(LDNA1+1)] for _ in range(LDNA2+1)]
+    result = top_help(DNA1, DNA2, LDNA1, LDNA2, cache)
     return result
 
-def lcs(DNA1, DNA2, LDNA1, LDNA2, cache):
+def top_help(DNA1, DNA2, LDNA1, LDNA2, cache):
     if (LDNA1 == 0 or LDNA2 == 0):
         return 0
 
@@ -15,14 +15,26 @@ def lcs(DNA1, DNA2, LDNA1, LDNA2, cache):
         return cache[LDNA1][LDNA2]
 
     if DNA1[LDNA1 - 1] == DNA2[LDNA2 - 1]:
-        cache[LDNA1][LDNA2] = 1 + lcs(DNA1, DNA2, LDNA1 - 1, LDNA2 - 1, cache)
+        cache[LDNA1][LDNA2] = 1 + top_help(DNA1, DNA2, LDNA1 - 1, LDNA2 - 1, cache)
         return cache[LDNA1][LDNA2]
 
-    cache[LDNA1][LDNA2] = max(lcs(DNA1, DNA2, LDNA1, LDNA2 - 1, cache), lcs(DNA1, DNA2, LDNA1 - 1, LDNA2, cache))
+    cache[LDNA1][LDNA2] = max(top_help(DNA1, DNA2, LDNA1, LDNA2 - 1, cache), top_help(DNA1, DNA2, LDNA1 - 1, LDNA2, cache))
     return cache[LDNA1][LDNA2]
 
 
-# def dna_match_bottomup(str1, str2):
+
+
+
+
+
+
+
+
+
+
+
+def dna_match_bottomup(str1, str2):
+    pass
 #
 #     m = len(str1)
 #     n = len(str2)
